@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="VentLab: laboratorio docente interactivo de mecánica respiratoria, VC y PC. Modelo ideal de un compartimento, no validado para decisiones clínicas.">
+<title>VentLab · Santis — Mecánica respiratoria</title>
+<style>
+:root{color-scheme:dark;--bg:#0b111a;--panel:#101a26;--card:#131f2d;--line:#233447;--text:#eaf0f6;--muted:#91a5b9;--accent:#6de2c0;--blue:#73b8ff;--gold:#f1c878;--purple:#c3a4ff;--danger:#ff9f91;--radius:13px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{font-size:14px}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);color:var(--text);background:var(--card);border-radius:8px;padding:8px 11px;font-weight:600;transition:background .15s,border-color .15s}button:hover{background:#23384a;border-color:#49657a}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button:disabled{opacity:.35;cursor:default}button.primary,button.active{background:#183f3a;border-color:#417e71;color:#a8f4de}select{background:var(--card);border:1px solid var(--line);color:var(--text);padding:8px;border-radius:8px;width:100%}input[type=checkbox]{accent-color:var(--accent)}a{color:var(--blue)}.shell{max-width:1820px;margin:auto;padding:18px 20px 10px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.brand{display:flex;gap:12px;align-items:center}.mark{width:39px;height:39px;flex-shrink:0;border:1px solid #355e60;border-radius:12px;background:#12302f;display:grid;place-items:center}.brand h1{font-size:25px;letter-spacing:-1.1px;margin:0;line-height:1}.brand h1 span{color:var(--accent);font-weight:400}.brand small{display:block;margin-top:6px;font-size:11px;letter-spacing:1.3px;color:var(--muted)}.top-actions{display:flex;align-items:center;gap:7px}.badge{font-size:10px;letter-spacing:1.2px;color:var(--muted);border:1px solid var(--line);padding:7px 9px;border-radius:25px;white-space:nowrap}.top-actions button{font-size:12px}.layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:16px;align-items:start}.sidebar{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}.section-title{font-size:10px;letter-spacing:1.6px;font-weight:700;color:var(--muted);margin:0 0 10px}.section{border-top:1px solid var(--line);margin-top:14px;padding-top:13px}.section.first{border:0;padding:0;margin:0}.mode-switch{display:flex;gap:6px;margin-bottom:10px}.mode-switch button{width:50%;font-size:12px;padding:9px 5px}.control{margin:11px 0}.control-head{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-bottom:6px;min-height:22px}.control-head label{font-size:12px;color:#d4e0eb}.value-wrap{display:flex;align-items:center;gap:5px}.number{width:52px;text-align:right;border:1px solid #2a4055;border-radius:5px;background:#0c1520;color:#f2f8fc;padding:3px 5px;font:600 13px ui-monospace,SFMono-Regular,Consolas,monospace;appearance:textfield;-moz-appearance:textfield}.number::-webkit-inner-spin-button{display:none}.unit{font-size:10px;color:var(--muted);min-width:34px;text-align:right}input[type=range]{width:100%;margin:0;height:4px;vertical-align:top;accent-color:var(--accent);cursor:pointer}.micro{font-size:10px;line-height:1.55;color:var(--muted);margin:5px 0 0}.timing{display:flex;justify-content:space-between;border-radius:7px;background:#0b1520;padding:9px;font-size:11px;color:var(--muted)}.timing strong{color:var(--text);font-weight:500}.presets{margin-bottom:9px}.subactions{display:flex;gap:6px;margin-top:10px}.subactions button{flex:1;font-size:11px;padding:7px 3px}.board{min-width:0}.metrics{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:12px}.metric{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:12px 11px;min-height:94px;overflow:hidden}.metric .label{font-size:10px;letter-spacing:.35px;color:var(--muted);white-space:nowrap}.metric .num{font-variant-numeric:tabular-nums;letter-spacing:-1px;font-size:29px;font-weight:650;margin-top:7px;line-height:1.08}.metric .desc{font-size:10px;color:var(--muted);margin-top:5px;white-space:nowrap}.metric:nth-child(1) .num{color:var(--gold)}.metric:nth-child(2) .num{color:var(--accent)}.metric.warn .num{color:var(--danger)}.toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px;min-height:32px;flex-wrap:wrap}.left-tools,.right-tools{display:flex;gap:6px;align-items:center}.tabs{display:flex;gap:2px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#0c1420}.tabs button{border:0;padding:6px 10px;font-size:11px;background:transparent}.tabs button.active{background:#213a42;color:var(--accent)}.toolbar button{font-size:11px}.live{font-size:10px;color:var(--muted);letter-spacing:.6px}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:5px}.check{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--muted);white-space:nowrap}.plots{display:grid;gap:9px}.plot{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:9px 10px 1px;overflow:hidden;min-width:0}.plot-head{display:flex;align-items:center;justify-content:space-between;gap:10px;height:19px;padding-left:3px;margin-bottom:3px}.plot-title{font-size:11px;font-weight:600;letter-spacing:.2px}.plot-title em{font-style:normal;color:var(--muted);font-weight:400;margin-left:5px;font-size:10px}.plot-title:before{content:"";display:inline-block;width:13px;height:2px;margin-right:8px;vertical-align:middle;background:currentColor}.plot-read{font:500 13px ui-monospace,SFMono-Regular,Consolas,monospace;font-variant-numeric:tabular-nums}.plot.paw .plot-title,.plot.paw .plot-read{color:var(--accent)}.plot.flow .plot-title,.plot.flow .plot-read{color:var(--blue)}.plot.vol .plot-title,.plot.vol .plot-read{color:var(--gold)}.plot.pmus .plot-title,.plot.pmus .plot-read{color:var(--purple)}canvas{display:block;width:100%;height:112px;touch-action:pan-y}.plot.pmus canvas{height:83px}.plot.pmus{padding-top:8px}.plot-hint{font-size:10px;color:var(--muted);text-align:right;margin:6px 2px}.loops{display:grid;grid-template-columns:1fr 1fr;gap:10px}.loop canvas{height:385px}.loop .plot-head{height:25px}.context{margin-top:11px;display:grid;grid-template-columns:1.05fr 1fr;gap:9px}.context-card{background:#0e1824;border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:82px}.eyebrow{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px}.context-card p{font-size:11px;color:#c1d0df;line-height:1.55;margin:0}.equation{font:500 16px Georgia,"Times New Roman",serif;letter-spacing:.25px;color:#e1edf6!important;margin:3px 0 6px!important}.footer{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:13px;color:var(--muted);font-size:10px;line-height:1.5}.footer strong{color:#d0ad83;font-weight:500}.ref-tag{font-size:10px;color:#bdc9d6;margin:0 0 9px;display:flex;align-items:center;gap:8px;min-height:16px}.ref-tag i{width:18px;height:1px;border-top:1px dashed #c3cdd7;display:inline-block}.ref-tag button{padding:1px 6px;font-size:11px}.hidden{display:none!important}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:11px 18px;background:#d8f9ed;color:#14362b;border-radius:10px;box-shadow:0 4px 30px #0008;max-width:90%;font-size:12px;z-index:20;text-align:center}.modal-cover{position:fixed;inset:0;z-index:30;background:#050a11cb;padding:24px;display:flex;align-items:center;justify-content:center}.modal{max-width:860px;width:100%;max-height:90vh;overflow:auto;background:#121e2c;border:1px solid #37516a;border-radius:16px;padding:24px 28px;box-shadow:0 10px 80px #0008}.modal h2{font-size:22px;margin:2px 0 16px}.modal h3{font-size:14px;color:var(--accent);margin:22px 0 8px}.modal p,.modal li{font-size:12px;line-height:1.7;color:#c9d7e4}.modal ul{padding-left:20px}.modal .close{float:right}.modal code{font-size:11px;color:#c1e2f4;background:#0a1421;padding:2px 4px}.modal .math{font:18px Georgia,serif;color:#e7f5ff}.tests{font:11px ui-monospace,monospace;line-height:1.8;white-space:pre-wrap;color:var(--accent)}.class-mode .sidebar{display:none}.class-mode .layout{grid-template-columns:minmax(0,1fr)}.class-mode .shell{max-width:none}.class-mode canvas{height:135px}.class-mode .plot.pmus canvas{height:90px}.class-mode .loop canvas{height:420px}
+@media (max-width:1150px){.shell{padding:13px}.layout{grid-template-columns:248px minmax(0,1fr);gap:12px}.sidebar{padding:13px}.badge{display:none}.metric{padding:10px 8px;min-height:86px}.metric .num{font-size:24px}.metric .label,.metric .desc{font-size:9px}.toolbar{gap:5px}.top-actions button{padding:7px 8px}.context-card{padding:10px}.metrics{gap:6px}.brand small{font-size:10px}}
+@media (max-width:850px){.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.metric{min-height:75px;padding:8px}.metric .num{font-size:23px;margin-top:3px}.context{grid-template-columns:1fr}.top{align-items:flex-start}.brand small{letter-spacing:.3px}.top-actions{flex-wrap:wrap;justify-content:flex-end}.top-actions button{font-size:10px}.right-tools{flex-wrap:wrap}.live{display:none}canvas{height:108px}.loop canvas{height:280px}.loops{grid-template-columns:1fr}.footer{align-items:flex-start}}
+@media (max-width:580px){.layout{grid-template-columns:1fr}.sidebar{order:2}.board{order:1}.top-actions #fullBtn{display:none}.brand h1{font-size:21px}.shell{padding:9px}.footer{flex-direction:column;gap:2px}.class-mode canvas{height:108px}.badge{display:none}.brand small{font-size:8px}.mark{width:32px;height:32px}.top-actions button{padding:6px}.context{grid-template-columns:1fr}}
+@media (min-width:1000px) and (max-height:810px){.shell{padding-top:12px}.top{margin-bottom:11px}.control{margin:8px 0}.control-head{margin-bottom:4px}.section{margin-top:10px;padding-top:10px}.metric{min-height:83px;padding-top:9px}.metric .num{font-size:25px}.plots{gap:7px}canvas{height:93px}.plot.pmus canvas{height:63px}.context-card{min-height:72px;padding:9px 12px}.sidebar{padding-top:13px}.class-mode canvas{height:110px}.class-mode .plot.pmus canvas{height:72px}.loop canvas,.class-mode .loop canvas{height:350px}}
+@media print{.sidebar,.top-actions,.toolbar,.footer,.modal-cover{display:none!important}.layout{grid-template-columns:1fr}.shell{padding:0}.plot{break-inside:avoid}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top">
+ <div class="brand"><div class="mark" aria-hidden="true"><svg width="29" height="24" viewBox="0 0 29 24" fill="none"><path d="M1 16H7L11 5L17 21L22 10H28" stroke="#91e7cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h1>Vent<span>Lab</span></h1><small>SANTIS / MECÁNICA RESPIRATORIA</small></div></div>
+ <div class="top-actions"><span class="badge">MODELO DOCENTE · v1.0</span><button id="modelBtn">Modelo y límites</button><button id="classBtn" title="Oculta o muestra los controles">Modo proyección</button><button id="fullBtn" title="La disponibilidad depende del navegador o del marco de PowerPoint">⛶ Pantalla</button></div>
+</header>
+<div class="layout">
+<aside class="sidebar" aria-label="Controles del simulador">
+ <div class="section first"><h2 class="section-title">01 / ESCENARIO DOCENTE</h2><select id="preset" class="presets" aria-label="Escenario"><option value="baseline">Basal · VC pasivo</option><option value="lowC">Baja compliance</option><option value="highR">Resistencia elevada</option><option value="trapping">Atrapamiento dinámico</option><option value="effort">PC con esfuerzo inspiratorio</option><option value="custom">Personalizado</option></select>
+ <div class="mode-switch"><button id="vcBtn" class="active" aria-pressed="true">VC · Volumen</button><button id="pcBtn" aria-pressed="false">PC · Presión</button></div></div>
+ <div id="ventControls"></div>
+ <div class="timing"><span>Ti <strong id="tiText">—</strong></span><span>Te <strong id="teText">—</strong></span><span>Te/τ <strong id="teTauText">—</strong></span></div>
+ <div class="section"><h2 class="section-title">02 / MECÁNICA RESPIRATORIA</h2><div id="mechControls"></div></div>
+ <div class="section"><h2 class="section-title">03 / ESFUERZO INSPIRATORIO</h2><div id="effortControls"></div><p class="micro">Magnitud de Pmus. La curva es negativa y está sincronizada con la inspiración.</p></div>
+ <div class="section"><div class="subactions"><button id="csvBtn">Exportar CSV</button><button id="htmlBtn" title="Guarda una versión HTML con los ajustes actuales">Guardar HTML</button></div><div class="subactions"><button id="jsonBtn">Guardar ajuste</button><button id="loadBtn">Abrir ajuste</button></div><input id="jsonFile" class="hidden" type="file" accept=".json,application/json"><p class="micro">Casos ilustrativos: no son pautas de ventilación.</p></div>
+</aside>
+<main class="board">
+ <section class="metrics" aria-label="Resultados del modelo">
+  <div class="metric"><div class="label">VT RESULTANTE</div><div class="num" id="mVt">—</div><div class="desc">mL · excursión máxima</div></div>
+  <div class="metric"><div class="label">PICO DE Paw</div><div class="num" id="mPip">—</div><div class="desc">cmH₂O</div></div>
+  <div class="metric"><div class="label">Pplat* / MODELO</div><div class="num" id="mPplat">—</div><div class="desc" id="pplatDesc">cmH₂O · pausa pasiva</div></div>
+  <div class="metric"><div class="label">ΔP ELÁSTICA*</div><div class="num" id="mDp">—</div><div class="desc">cmH₂O · ΔV / Crs</div></div>
+  <div class="metric" id="peepiCard"><div class="label">PEEP INTRÍNSECA*</div><div class="num" id="mPeepi">—</div><div class="desc" id="peepDesc">cmH₂O · del modelo</div></div>
+  <div class="metric"><div class="label">CONSTANTE τ</div><div class="num" id="mTau">—</div><div class="desc">s · Rrs × Crs</div></div>
+ </section>
+ <div class="toolbar"><div class="left-tools"><div class="tabs"><button id="wavesTab" class="active">Curvas</button><button id="loopsTab">Lazos</button></div><button id="playBtn" title="Espacio para pausar o reanudar">Ⅱ Pausar</button><button id="refBtn">＋ Referencia</button></div><div class="right-tools"><label class="check"><input id="absoluteVol" type="checkbox"> Ver atrapamiento</label><span class="live"><span class="dot"></span><span id="phaseText">ESPIRACIÓN</span></span></div></div>
+ <div id="refTag" class="ref-tag hidden"><i></i><span id="refLabel"></span><button id="clearRef" aria-label="Quitar referencia">×</button></div>
+ <section id="wavesView" class="plots" aria-label="Curvas de ventilación">
+  <div class="plot paw"><div class="plot-head"><div class="plot-title">Presión de vía aérea <em>cmH₂O</em></div><span class="plot-read" id="pawNow">—</span></div><canvas id="pawCanvas" aria-label="Presión de vía aérea versus tiempo"></canvas></div>
+  <div class="plot flow"><div class="plot-head"><div class="plot-title">Flujo <em>L/min · inspiración positiva</em></div><span class="plot-read" id="flowNow">—</span></div><canvas id="flowCanvas" aria-label="Flujo versus tiempo"></canvas></div>
+  <div class="plot vol"><div class="plot-head"><div class="plot-title">Volumen <em id="volumeLabel">mL · desde el inicio del ciclo</em></div><span class="plot-read" id="volNow">—</span></div><canvas id="volCanvas" aria-label="Volumen versus tiempo"></canvas></div>
+  <div class="plot pmus"><div class="plot-head"><div class="plot-title">Presión muscular <em>cmH₂O · negativa al inspirar</em></div><span class="plot-read" id="pmusNow">—</span></div><canvas id="pmusCanvas" aria-label="Presión muscular versus tiempo"></canvas></div>
+ </section>
+ <section id="loopsView" class="loops hidden" aria-label="Lazos ventilatorios">
+  <div class="plot loop paw"><div class="plot-head"><div class="plot-title">Presión–volumen <em>Paw / ΔV</em></div></div><canvas id="pvCanvas" aria-label="Lazo presión volumen"></canvas></div>
+  <div class="plot loop flow"><div class="plot-head"><div class="plot-title">Flujo–volumen <em>ΔV / flujo</em></div></div><canvas id="fvCanvas" aria-label="Lazo flujo volumen"></canvas></div>
+ </section>
+ <div class="plot-hint" id="plotHint">3 ciclos periódicos · ejes autoajustados · clic en una curva para detener el cursor</div>
+ <section class="context"><div class="context-card"><div class="eyebrow">LECTURA DEL ESCENARIO</div><p id="insight">—</p></div><div class="context-card"><div class="eyebrow">ECUACIÓN DE MOVIMIENTO</div><p class="equation">Paw = PEEP + V / Crs + Rrs · Q + Pmus</p><p id="modelNote">Un compartimento lineal. Cada ajuste recalcula el régimen periódico.</p></div></section>
+</main>
+</div>
+<footer class="footer"><span><strong>Solo docencia. No validado para decisiones clínicas.</strong> Sin datos de pacientes.</span><span>* Parámetros del modelo; no mediciones de un ventilador. <span id="statusText">Motor local · sin dependencias</span></span></footer>
+</div>
+<div class="modal-cover hidden" id="modalCover" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><button id="closeModal" class="close">Cerrar ×</button><h2 id="modalTitle">Qué está simulando VentLab</h2>
+<p>Un laboratorio docente original de mecánica respiratoria. <strong>No es un gemelo digital, un simulador completo de ventilador ni un dispositivo médico.</strong> No se ha validado con pacientes ni con un pulmón de prueba.</p>
+<h3>Modelo y convención de signos</h3><p class="math">Paw = PEEP + V/Crs + Rrs·Q + Pmus</p><p>Crs es la compliance del <strong>sistema respiratorio</strong>, no solo pulmonar. V se expresa en litros respecto del volumen de equilibrio a la PEEP programada; Q=dV/dt en L/s. La Pmus inspiratoria es negativa: −A·sin²(πt/Ti). Rrs y Crs son constantes y se usan en inspiración y espiración. No se separan pulmón y pared torácica.</p>
+<h3>Modos y solución</h3><p><strong>VC:</strong> flujo cuadrado durante la insuflación y pausa opcional dentro de Ti. El VT se programa; Paw se calcula. <strong>PC:</strong> presión por encima de PEEP con rampa inicial opcional; Q y V se calculan. En espiración, Paw=PEEP y V decae exponencialmente.</p><p>Se integra un ciclo y se resuelve su condición periódica conservando el volumen residual. PC usa Runge–Kutta de orden 4 con pasos ≤2 ms; VC y espiración usan actualizaciones exactas. <strong>Los cambios de controles sustituyen de inmediato un régimen periódico por otro: no se simula el transitorio de adaptación.</strong> El cursor anima la lectura de los ciclos.</p>
+<h3>Cómo interpretar los resultados</h3><ul>
+<li><strong>VT resultante:</strong> Vmáx−V al inicio del ciclo. En VC coincide con el VT programado. Con esfuerzo en PC puede diferir del volumen neto al final de la inspiración; ambos se incluyen en la exportación.</li>
+<li><strong>Pplat*:</strong> con VC, pausa y Pmus=0, corresponde al plateau ideal. En PC pasivo o VC sin pausa es solo una presión de equilibrio calculada al final de la inspiración (sin flujo), no una medición. Se oculta si Pmus&gt;0.</li>
+<li><strong>ΔP elástica*:</strong> (Vmáx−Vinicial)/Crs. En ventilación pasiva coincide con Pplat−PEEP total. Con esfuerzo no es una driving pressure medida ni una presión transpulmonar.</li>
+<li><strong>PEEP intrínseca*:</strong> Vinicial/Crs en régimen periódico. PEEP total=PEEP programada+PEEP intrínseca. No simula una oclusión espiratoria real.</li>
+<li><strong>Ver atrapamiento:</strong> muestra V respecto al equilibrio a PEEP, en lugar de restar el volumen al inicio del ciclo. Ese volumen no es la capacidad residual funcional absoluta.</li>
+<li><strong>Referencia:</strong> guarda una copia del escenario y superpone trazos discontinuos. El eje temporal es común; distintas FR producen desfase. No almacena información fuera de este documento.</li></ul>
+<h3>Limitaciones importantes</h3><p>No incluye reclutamiento, sobredistensión, histéresis, cierre de vía aérea, limitación espiratoria no lineal, heterogeneidad, intercambio gaseoso, hemodinamia, fugas, circuito, trigger, ciclado por flujo, asincronías ni algoritmos de seguridad. En PC se asume un regulador ideal que admite flujo bidireccional; puede aparecer flujo inverso inspiratorio con esfuerzo. Los ciclos están sincronizados por tiempo, no disparados por el paciente. <strong>No permite elegir una PEEP óptima ni predecir lesión o seguridad clínica.</strong></p>
+<h3>Pruebas numéricas incluidas</h3><p>Contrastes contra soluciones analíticas pasivas y comprobaciones de conservación y periodicidad. Estas pruebas son de implementación, no de validez clínica.</p><button id="testsBtn">Ejecutar comprobaciones</button><div id="testsOut" class="tests"></div>
+<h3>Base metodológica y documentación</h3><p>Gutierrez G. <em>A novel method to calculate compliance and airway resistance in ventilated patients.</em> Intensive Care Medicine Experimental (2022). <a href="https://doi.org/10.1186/s40635-022-00483-2" target="_blank" rel="noopener noreferrer">Artículo y ecuación de movimiento</a>. La convención negativa de Pmus se declara aquí explícitamente.</p><p><a href="https://research.google.com/colaboratory/faq.html" target="_blank" rel="noopener noreferrer">Documentación de Colab</a> · <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener noreferrer">GitHub Pages</a> · <a href="https://sparkslides.com/embed-website-in-powerpoint/" target="_blank" rel="noopener noreferrer">SparkEmbed</a></p>
+<p>v1.0 · Octubre de 2026 · Código original editable, sin componentes de RT Maven ni conexiones a ese servicio.</p>
+</div></div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script type="application/json" id="initial-config">{"mode":"VC","rr":15,"ie":2,"peep":5,"vt":400,"dp":12,"c":50,"r":10,"pmus":0,"pause":15,"rise":100}</script>
+<script id="ventlab-model">
+/* VentLab 1.0 — original, educational one-compartment model.
+   Units: pressure cmH2O, volume L, time s, flow L/s, C L/cmH2O.
+   Convention: Pmus is negative during inspiratory effort.
+   Paw = PEEP + V/C + R*Q + Pmus; V=0 is equilibrium at the set PEEP.
+   The engine solves a periodic steady state, NOT clinical patient dynamics.
+*/
+(function (root) {
+  'use strict';
+  const defaults = {mode:'VC', rr:15, ie:2, peep:5, vt:400, dp:12,
+                    c:50, r:10, pmus:0, pause:15, rise:100};
+  const limits = {rr:[6,40], ie:[0.5,4], peep:[0,20], vt:[200,800],
+                  dp:[5,35], c:[10,100], r:[2,50], pmus:[0,20],
+                  pause:[0,40], rise:[0,300]};
+  function normalize(input) {
+    const p=Object.assign({},defaults);
+    if(input && (input.mode==='VC'||input.mode==='PC')) p.mode=input.mode;
+    Object.keys(limits).forEach(function(k){
+      const x=input && input[k]!==undefined ? Number(input[k]) : defaults[k];
+      if(!Number.isFinite(x)) throw new Error('Parámetro no numérico: '+k);
+      p[k]=Math.min(limits[k][1],Math.max(limits[k][0],x));
+    });
+    return p;
+  }
+  function simulate(input) {
+    const p=normalize(input), C=p.c/1000, tau=C*p.r, T=60/p.rr;
+    const Ti=T/(1+p.ie), Te=T-Ti, tf=Ti*(1-p.pause/100);
+    const rise=Math.min(p.rise/1000,Ti), qvc=(p.vt/1000)/tf;
+    const phases=p.mode==='VC'
+      ? (p.pause>0 ? [[0,tf,'in'],[tf,Ti,'hold'],[Ti,T,'ex']] : [[0,Ti,'in'],[Ti,T,'ex']])
+      : (rise>0 ? [[0,rise,'in'],[rise,Ti,'in'],[Ti,T,'ex']] : [[0,Ti,'in'],[Ti,T,'ex']]);
+    function muscle(t,phase) {
+      return phase==='ex' ? 0 : -p.pmus*Math.pow(Math.sin(Math.PI*t/Ti),2);
+    }
+    function pressure(t) {return p.peep+p.dp*(rise>0?Math.min(t/rise,1):1);}
+    function sample(t,v,phase) {
+      const pm=muscle(t,phase);
+      let q,paw;
+      if(phase==='ex'){paw=p.peep; q=-v/tau;}
+      else if(p.mode==='VC') {q=phase==='hold'?0:qvc; paw=p.peep+v/C+p.r*q+pm;}
+      else {paw=pressure(t); q=(paw-p.peep-v/C-pm)/p.r;}
+      return {t:t,v:v,q:q,paw:paw,pmus:pm,pel:v/C,phase:phase};
+    }
+    function march(start,save) {
+      let v=start,a=1;
+      const data=[];
+      phases.forEach(function(seg){
+        const begin=seg[0], end=seg[1], phase=seg[2];
+        if(end-begin<1e-12) return;
+        const n=Math.max(1,Math.ceil((end-begin)/0.002)),h=(end-begin)/n;
+        if(save) data.push(sample(begin,v,phase));
+        for(let i=0;i<n;i++) {
+          const t=begin+i*h;
+          if(phase==='ex') {const e=Math.exp(-h/tau);v*=e;a*=e;}
+          else if(p.mode==='VC') {if(phase==='in') v+=qvc*h;}
+          else {
+            const f=function(tt,vv){return (pressure(tt)-p.peep-vv/C-muscle(tt,phase))/p.r;};
+            const k1=f(t,v),k2=f(t+h/2,v+h*k1/2),k3=f(t+h/2,v+h*k2/2),k4=f(t+h,v+h*k3);
+            v+=h*(k1+2*k2+2*k3+k4)/6;
+            const z=-h/tau;a*=1+z+z*z/2+z*z*z/6+z*z*z*z/24;
+          }
+          if(save) data.push(sample(begin+(i+1)*h,v,phase));
+        }
+      });
+      return {v:v,a:a,data:data};
+    }
+    const zero=march(0,false),v0=zero.v/(1-zero.a),cy=march(v0,true),d=cy.data;
+    let vmax=-Infinity,pip=-Infinity,pmin=Infinity,qmin=Infinity,qmax=-Infinity,vmin=Infinity;
+    let vend=v0, minInspFlow=0;
+    d.forEach(function(s){
+      vmax=Math.max(vmax,s.v);vmin=Math.min(vmin,s.v);pip=Math.max(pip,s.paw);pmin=Math.min(pmin,s.paw);
+      qmin=Math.min(qmin,s.q);qmax=Math.max(qmax,s.q);
+      if(s.phase!=='ex'){vend=s.v;minInspFlow=Math.min(minInspFlow,s.q);}
+    });
+    const m={vt:(vmax-v0)*1000, vtEnd:(vend-v0)*1000,
+      pip:pip,pmin:pmin,pplat:p.pmus===0?p.peep+vend/C:null,
+      pplatMeasured:p.mode==='VC'&&p.pause>0&&p.pmus===0,
+      dpElastic:(vmax-v0)/C,peepi:v0/C,peepTotal:p.peep+v0/C,
+      trapped:v0*1000,tau:tau,ti:Ti,te:Te,teTau:Te/tau,
+      flowPeak:qmax*60,flowMin:qmin*60,flowEnd:-cy.v/tau*60,
+      minInspFlow:minInspFlow*60,periodicError:Math.abs(cy.v-v0)};
+    if(!d.every(function(s){return Number.isFinite(s.v)&&Number.isFinite(s.paw)&&Number.isFinite(s.q);}))
+      throw new Error('La integración no produjo valores finitos.');
+    return {p:p,T:T,Ti:Ti,Te:Te,C:C,v0:v0,vmax:vmax,vmin:vmin,metrics:m,data:d};
+  }
+  function selfTests() {
+    const checks=[];
+    function check(name,actual,expected,tol){const error=Math.abs(actual-expected);checks.push({name:name,pass:error<=tol,actual:actual,expected:expected,error:error,tolerance:tol});}
+    let s=simulate(defaults),m=s.metrics;
+    check('VC: VT programado (mL)',m.vt,400,0.00001);
+    check('VC: delta elástica VT/C (cmH2O)',m.dpElastic,8,0.00001);
+    const v0=0.4/Math.expm1(s.Te/0.5);
+    check('VC: atrapamiento analítico (L)',s.v0,v0,1e-9);
+    check('VC: Pplat de pausa pasiva (cmH2O)',m.pplat,5+(v0+0.4)/0.05,1e-7);
+    check('VC: caída resistiva pico-plateau',m.pip-m.pplat,10*0.4/(s.Ti*0.85),1e-7);
+    s=simulate(Object.assign({},defaults,{mode:'PC',rise:0}));
+    const a=Math.exp(-s.Ti/.5), b=Math.exp(-s.Te/.5);
+    const end=.05*12*(1-a)/(1-a*b), begin=end*b;
+    check('PC: VT exponencial periódico (mL)',s.metrics.vt,(end-begin)*1000,0.001);
+    check('PC: PEEP intrínseca analítica',s.metrics.peepi,begin/.05,1e-5);
+    s=simulate(Object.assign({},defaults,{pmus:10}));
+    check('VC con esfuerzo: conservación del VT',s.metrics.vt,400,1e-5);
+    s=simulate(Object.assign({},defaults,{rr:30,c:80,r:30,ie:1}));
+    check('Atrapamiento: periodicidad (L)',s.metrics.periodicError,0,1e-9);
+    let residual=0;
+    s=simulate(Object.assign({},defaults,{mode:'PC',pmus:12,c:30,r:20}));
+    s.data.forEach(function(x){residual=Math.max(residual,Math.abs(x.paw-(s.p.peep+x.v/s.C+s.p.r*x.q+x.pmus)));});
+    check('Ecuación de movimiento: residuo máximo',residual,0,1e-10);
+    return checks;
+  }
+  const api={defaults:defaults,limits:limits,normalize:normalize,simulate:simulate,selfTests:selfTests};
+  if(typeof module!=='undefined'&&module.exports) module.exports=api;
+  else root.VentModel=api;
+})(typeof window!=='undefined'?window:this);
+
+</script>
+<script id="ventlab-ui">
+(function(){
+'use strict';
+const $=function(id){return document.getElementById(id);};
+const D=VentModel.defaults;
+let p=VentModel.normalize(JSON.parse($('initial-config').textContent)), model, ref=null;
+let playing=true,view='waves',head=2,previous=0,absolute=false,timer=null;
+const colors={paw:'#6de2c0',flow:'#73b8ff',vol:'#f1c878',pmus:'#c3a4ff',ref:'#b6c5d2'};
+const presets={baseline:Object.assign({},D),lowC:Object.assign({},D,{c:25}),highR:Object.assign({},D,{r:25}),trapping:Object.assign({},D,{rr:30,ie:1,c:80,r:30,pause:0}),effort:Object.assign({},D,{mode:'PC',pmus:8})};
+const defs=[
+ ['rr','Frecuencia respiratoria','/min',1,'ventControls'],
+ ['ie','Relación I:E = 1 :','',.1,'ventControls'],
+ ['peep','PEEP','cmH₂O',1,'ventControls'],
+ ['vt','Volumen corriente','mL',10,'ventControls','VC'],
+ ['pause','Pausa (% de Ti)','%',5,'ventControls','VC'],
+ ['dp','Presión sobre PEEP','cmH₂O',1,'ventControls','PC'],
+ ['rise','Tiempo de subida','ms',10,'ventControls','PC'],
+ ['c','Compliance · Crs','mL/cmH₂O',1,'mechControls'],
+ ['r','Resistencia · Rrs','cmH₂O·s/L',1,'mechControls'],
+ ['pmus','Magnitud de Pmus','cmH₂O',1,'effortControls']];
+defs.forEach(function(d){
+ const k=d[0],lim=VentModel.limits[k],el=document.createElement('div');
+ el.className='control';el.id='control-'+k;
+ el.innerHTML='<div class="control-head"><label for="num-'+k+'">'+d[1]+'</label><div class="value-wrap"><input id="num-'+k+'" class="number" type="number" min="'+lim[0]+'" max="'+lim[1]+'" step="'+d[3]+'" value="'+p[k]+'"><span class="unit">'+d[2]+'</span></div></div><input id="range-'+k+'" type="range" min="'+lim[0]+'" max="'+lim[1]+'" step="'+d[3]+'" value="'+p[k]+'" aria-label="'+d[1]+'">';
+ $(d[4]).appendChild(el);
+ $('range-'+k).addEventListener('input',function(e){p[k]=Number(e.target.value);$('num-'+k).value=p[k];$('preset').value='custom';recompute();});
+ $('num-'+k).addEventListener('change',function(e){if(e.target.value.trim()===''||!Number.isFinite(Number(e.target.value))){e.target.value=p[k];return;}p[k]=Math.max(lim[0],Math.min(lim[1],Number(e.target.value)));sync();$('preset').value='custom';recompute();});
+});
+function fmt(x,n){return x===null||!Number.isFinite(x)?'—':x.toFixed(n===undefined?1:n);}
+function sync(){defs.forEach(function(d){$('num-'+d[0]).value=p[d[0]];$('range-'+d[0]).value=p[d[0]];if(d[5])$('control-'+d[0]).classList.toggle('hidden',d[5]!==p.mode);});['VC','PC'].forEach(function(m){const b=$(m.toLowerCase()+'Btn');b.classList.toggle('active',p.mode===m);b.setAttribute('aria-pressed',p.mode===m?'true':'false');});}
+function recompute(){
+ try{model=VentModel.simulate(p);p=model.p;sync();head=Math.min(head,model.T*3);updateMetrics();draw();}
+ catch(e){toast('No se pudo calcular: '+e.message);console.error(e);}
+}
+function updateMetrics(){
+ const m=model.metrics;
+ $('mVt').textContent=fmt(m.vt,0);$('mPip').textContent=fmt(m.pip);$('mPplat').textContent=fmt(m.pplat);$('mDp').textContent=fmt(m.dpElastic);$('mPeepi').textContent=fmt(m.peepi);$('mTau').textContent=fmt(m.tau,2);
+ $('pplatDesc').textContent=p.pmus>0?'no válida con esfuerzo':m.pplatMeasured?'cmH₂O · pausa pasiva':'teórica · sin oclusión';
+ $('peepDesc').textContent='PEEP total: '+fmt(m.peepTotal)+' cmH₂O';
+ $('peepiCard').classList.toggle('warn',m.peepi>=2);
+ $('tiText').textContent=fmt(m.ti,2)+' s';$('teText').textContent=fmt(m.te,2)+' s';$('teTauText').textContent=fmt(m.teTau,1);
+ $('volumeLabel').textContent=absolute?'mL · sobre el equilibrio a PEEP':'mL · desde el inicio del ciclo';
+ let text;
+ if(m.peepi>=2) text='Persiste flujo al final de la espiración ('+fmt(m.flowEnd)+' L/min). Volumen atrapado: '+fmt(m.trapped,0)+' mL. Acorta Ti o reduce FR para explorar su efecto en este modelo.';
+ else if(p.mode==='VC'&&p.pmus>0)text='En VC el VT se conserva. El esfuerzo inspiratorio reduce la Paw necesaria para mover ese volumen; una Paw menor no implica menor presión transpulmonar.';
+ else if(p.mode==='PC'&&p.pmus>0)text='En PC, Paw está controlada. El esfuerzo modifica el flujo y el volumen: VT máx. '+fmt(m.vt,0)+' mL; ΔV al final de Ti '+fmt(m.vtEnd,0)+' mL.';
+ else if(p.mode==='VC'&&p.r>=20)text='La resistencia eleva la presión de pico. La presión de equilibrio depende del volumen y de la compliance. Explora la caída resistiva durante la pausa.';
+ else if(p.mode==='VC'&&p.c<=30)text='Con VT constante, una menor compliance aumenta el componente elástico de la presión. Compara con una referencia de Crs = 50 mL/cmH₂O.';
+ else if(p.mode==='VC')text='VC: el flujo y el VT se programan; la presión resulta de la mecánica. Guarda una referencia y modifica Crs o Rrs para comparar las curvas.';
+ else text='PC: la presión se programa; flujo y VT resultan de Crs, Rrs, Ti y Pmus. El flujo desacelera a medida que aumenta la presión elástica.';
+ if(m.pip>60)text+=' Presión muy alta: el modelo ideal no incorpora límites ni alarmas de un ventilador real.';
+ $('insight').textContent=text;
+ $('modelNote').textContent=p.mode==='PC'&&m.minInspFlow<-1?'PC ideal: admite flujo inverso. Cada ajuste recalcula el régimen periódico.':'Crs y Rrs constantes. Cada ajuste recalcula el régimen periódico; no los transitorios.';
+}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(timer);timer=setTimeout(function(){$('toast').classList.add('hidden');},4500);}
+function sampleAt(m,t){const d=m.data,tt=((t%m.T)+m.T)%m.T;let lo=0,hi=d.length-1;while(lo<hi){let mid=Math.floor((lo+hi)/2);if(d[mid].t<tt)lo=mid+1;else hi=mid;}return d[lo];}
+function seriesValue(s,key,m){if(key==='flow')return s.q*60;if(key==='vol')return (s.v-(absolute?0:m.v0))*1000;return s[key];}
+function niceStep(range){const rough=range/4,pow=Math.pow(10,Math.floor(Math.log10(Math.max(rough,1e-9)))),f=rough/pow;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*pow;}
+function bounds(key){let lo=0,hi=key==='paw'?30:key==='vol'?500:key==='pmus'?1:30;
+ if(key==='flow')lo=-30;if(key==='pmus')lo=-10;
+ [model,ref].forEach(function(m){if(!m)return;m.data.forEach(function(s){const v=seriesValue(s,key,m);lo=Math.min(lo,v);hi=Math.max(hi,v);});});
+ const span=Math.max(hi-lo,1);if(key!=='pmus')hi+=span*.10;if(lo<0)lo-=span*.08;
+ const step=niceStep(hi-lo);return [Math.floor(lo/step)*step,Math.ceil(hi/step)*step,step];}
+function setupCanvas(id){const canvas=$(id),r=canvas.getBoundingClientRect();if(r.width<1||r.height<1)return null;const dpr=Math.min(window.devicePixelRatio||1,2),w=r.width,h=r.height;if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);return {c:c,w:w,h:h,canvas:canvas};}
+function drawWave(key,id){
+ const o=setupCanvas(id);if(!o)return;const c=o.c,w=o.w,h=o.h,left=48,right=12,top=4,bottom=20,pw=w-left-right,ph=h-top-bottom,B=bounds(key),span=model.T*3;
+ const X=function(t){return left+t/span*pw;},Y=function(v){return top+(B[1]-v)/(B[1]-B[0])*ph;};
+ c.save();c.beginPath();c.rect(left,top,pw,ph);c.clip();
+ c.fillStyle='rgba(104,210,193,0.033)';for(let b=0;b<3;b++)c.fillRect(X(b*model.T),top,model.Ti/span*pw,ph);
+ c.lineWidth=1;
+ for(let v=B[0];v<=B[1]+1e-7;v+=B[2]){c.strokeStyle=v===0?'#3c5265':'#1e2d3e';c.beginPath();c.moveTo(left,Y(v));c.lineTo(w-right,Y(v));c.stroke();}
+ const st=niceStep(span);for(let t=0;t<=span+1e-7;t+=st){c.strokeStyle='#1d2c3c';c.beginPath();c.moveTo(X(t),top);c.lineTo(X(t),h-bottom);c.stroke();}
+ if(key==='paw'){c.setLineDash([3,5]);c.strokeStyle='#6a8390';c.beginPath();c.moveTo(left,Y(p.peep));c.lineTo(w-right,Y(p.peep));c.stroke();c.setLineDash([]);}
+ function trace(m,color,reference){if(!m)return;c.lineWidth=reference?1.2:2;c.strokeStyle=color;c.globalAlpha=reference?.58:1;c.setLineDash(reference?[5,5]:[]);c.beginPath();let first=true;const skip=Math.max(1,Math.floor(m.data.length/(pw*2)));for(let b=0;b<Math.ceil(span/m.T)+1;b++){for(let i=0;i<m.data.length;i++){if(i%skip!==0&&i!==m.data.length-1&&i>0&&m.data[i].phase===m.data[i-1].phase)continue;const s=m.data[i],t=b*m.T+s.t;if(t>span)break;const x=X(t),y=Y(seriesValue(s,key,m));if(first){c.moveTo(x,y);first=false;}else c.lineTo(x,y);}}c.stroke();c.setLineDash([]);c.globalAlpha=1;}
+ trace(ref,colors.ref,true);trace(model,colors[key],false);
+ const now=sampleAt(model,head),xx=X(head);c.strokeStyle='#e7eff53d';c.lineWidth=1;c.beginPath();c.moveTo(xx,top);c.lineTo(xx,h-bottom);c.stroke();c.fillStyle=colors[key];c.beginPath();c.arc(xx,Y(seriesValue(now,key,model)),3,0,Math.PI*2);c.fill();c.restore();
+ c.fillStyle='#8399ad';c.font='10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';c.textAlign='right';c.textBaseline='middle';for(let v=B[0];v<=B[1]+1e-7;v+=B[2]){c.fillText(Math.abs(v)<1e-9?'0':String(Math.round(v*10)/10),left-8,Y(v));}
+ c.textAlign='center';for(let t=0;t<=span+1e-7;t+=st)c.fillText(String(Math.round(t*10)/10),X(t),h-8);c.textAlign='right';c.fillText('s',w-1,h-8);
+}
+function drawLoop(kind,id){
+ const o=setupCanvas(id);if(!o)return;const c=o.c,w=o.w,h=o.h,L=54,R=18,U=12,B=35,pw=w-L-R,ph=h-U-B;
+ const bx=bounds(kind==='pv'?'paw':'vol'),by=bounds(kind==='pv'?'vol':'flow');
+ const xv=function(s,m){return seriesValue(s,kind==='pv'?'paw':'vol',m);},yv=function(s,m){return seriesValue(s,kind==='pv'?'vol':'flow',m);};
+ const X=function(x){return L+(x-bx[0])/(bx[1]-bx[0])*pw;},Y=function(y){return U+(by[1]-y)/(by[1]-by[0])*ph;};
+ c.font='10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';c.textBaseline='middle';
+ for(let x=bx[0];x<=bx[1]+1e-8;x+=bx[2]){c.strokeStyle='#223447';c.beginPath();c.moveTo(X(x),U);c.lineTo(X(x),h-B);c.stroke();c.fillStyle='#8da4b8';c.textAlign='center';c.fillText(String(Math.round(x)),X(x),h-B+13);}
+ for(let y=by[0];y<=by[1]+1e-8;y+=by[2]){c.strokeStyle=y===0?'#445a6d':'#223447';c.beginPath();c.moveTo(L,Y(y));c.lineTo(w-R,Y(y));c.stroke();c.fillStyle='#8da4b8';c.textAlign='right';c.fillText(String(Math.round(y)),L-8,Y(y));}
+ [ref,model].forEach(function(m,i){if(!m)return;c.strokeStyle=i===0?colors.ref:kind==='pv'?colors.paw:colors.flow;c.lineWidth=i===0?1:2.3;c.setLineDash(i===0?[5,5]:[]);c.globalAlpha=i===0?.5:1;c.beginPath();m.data.forEach(function(s,j){if(j===0)c.moveTo(X(xv(s,m)),Y(yv(s,m)));else c.lineTo(X(xv(s,m)),Y(yv(s,m)));});c.closePath();c.stroke();});c.setLineDash([]);c.globalAlpha=1;
+ const s=sampleAt(model,head);c.fillStyle=kind==='pv'?colors.paw:colors.flow;c.beginPath();c.arc(X(xv(s,model)),Y(yv(s,model)),4,0,Math.PI*2);c.fill();c.fillStyle='#a7bbcb';c.textAlign='right';c.fillText(kind==='pv'?'Paw (cmH₂O)':'Volumen (mL)',w-R,h-5);c.textAlign='left';c.fillText(kind==='pv'?'mL':'L/min',4,9);
+}
+let cachedBounds=null;
+function draw(){if(!model)return;
+ if(view==='waves'){drawWave('paw','pawCanvas');drawWave('flow','flowCanvas');drawWave('vol','volCanvas');drawWave('pmus','pmusCanvas');}
+ else{drawLoop('pv','pvCanvas');drawLoop('fv','fvCanvas');}
+ const s=sampleAt(model,head);$('pawNow').textContent=fmt(s.paw);$('flowNow').textContent=fmt(s.q*60);$('volNow').textContent=fmt(seriesValue(s,'vol',model),0);$('pmusNow').textContent=fmt(s.pmus);$('phaseText').textContent=!playing?'CURSOR EN PAUSA':s.phase==='ex'?'ESPIRACIÓN':s.phase==='hold'?'PAUSA INSP.':'INSUFLACIÓN';
+}
+function play(){playing=!playing;$('playBtn').textContent=playing?'Ⅱ Pausar':'▶ Reanudar';draw();}
+function tab(v){view=v;$('wavesTab').classList.toggle('active',v==='waves');$('loopsTab').classList.toggle('active',v==='loops');$('wavesView').classList.toggle('hidden',v!=='waves');$('loopsView').classList.toggle('hidden',v!=='loops');$('plotHint').textContent=v==='waves'?'3 ciclos periódicos · ejes autoajustados · clic en una curva para detener el cursor':'Un ciclo periódico · el punto sigue la fase respiratoria · ejes autoajustados';draw();}
+function setMode(m){p.mode=m;$('preset').value='custom';recompute();}
+$('vcBtn').onclick=function(){setMode('VC');};$('pcBtn').onclick=function(){setMode('PC');};
+$('preset').onchange=function(e){if(presets[e.target.value]){p=Object.assign({},presets[e.target.value]);head=2;recompute();}};
+$('wavesTab').onclick=function(){tab('waves');};$('loopsTab').onclick=function(){tab('loops');};$('playBtn').onclick=play;
+$('absoluteVol').onchange=function(e){absolute=e.target.checked;updateMetrics();draw();};
+$('refBtn').onclick=function(){ref=model;$('refTag').classList.remove('hidden');$('refLabel').textContent='Referencia: '+p.mode+' · VT '+fmt(ref.metrics.vt,0)+' · Crs '+p.c+' · Rrs '+p.r+' · FR '+p.rr+' · Pmus '+p.pmus;$('refBtn').textContent='↻ Referencia';draw();toast('Referencia guardada. Cambia un parámetro para comparar.');};
+$('clearRef').onclick=function(){ref=null;$('refTag').classList.add('hidden');$('refBtn').textContent='＋ Referencia';draw();};
+$('classBtn').onclick=function(){const active=document.body.classList.toggle('class-mode');$('classBtn').textContent=active?'Mostrar controles':'Modo proyección';setTimeout(draw,20);};
+$('fullBtn').onclick=function(){try{if(document.fullscreenElement){document.exitFullscreen();return;}if(!document.documentElement.requestFullscreen){toast('Usa el modo proyección o amplía la ventana del navegador.');return;}document.documentElement.requestFullscreen().catch(function(){toast('El marco no permite pantalla completa. Usa «Modo proyección».');});}catch(e){toast('Usa «Modo proyección» para ampliar las curvas.');}};
+$('modelBtn').onclick=function(){$('modalCover').classList.remove('hidden');$('closeModal').focus();};
+function closeModal(){$('modalCover').classList.add('hidden');$('modelBtn').focus();}
+$('closeModal').onclick=closeModal;$('modalCover').onclick=function(e){if(e.target===$('modalCover'))closeModal();};
+$('testsBtn').onclick=function(){const t=VentModel.selfTests();$('testsOut').textContent='\n'+t.map(function(x){return (x.pass?'✓ ':'✗ ')+x.name+' · error '+x.error.toExponential(2);}).join('\n')+'\n\n'+t.filter(function(x){return x.pass;}).length+'/'+t.length+' comprobaciones superadas. No equivale a validación clínica.';};
+function download(name,text,type){try{const u=URL.createObjectURL(new Blob([text],{type:type})),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},2000);toast('Archivo preparado. Revisa las descargas del navegador.');}catch(e){toast('El marco bloqueó la descarga. Abre el HTML fuera del complemento.');}}
+$('csvBtn').onclick=function(){const m=model,p=m.p;let rows=['# VentLab 1.0; simulación docente, no datos clínicos','# ajustes='+JSON.stringify(p),'# metricas='+JSON.stringify(m.metrics),'tiempo_s,fase,paw_cmH2O,flujo_L_min,volumen_sobre_equilibrio_PEEP_mL,volumen_desde_inicio_mL,pmus_cmH2O,presion_elastica_cmH2O'];m.data.forEach(function(s){rows.push([s.t.toFixed(6),s.phase,s.paw.toFixed(6),(s.q*60).toFixed(6),(s.v*1000).toFixed(6),((s.v-m.v0)*1000).toFixed(6),s.pmus.toFixed(6),s.pel.toFixed(6)].join(','));});download('VentLab_'+p.mode+'_ciclo.csv',rows.join('\n'),'text/csv;charset=utf-8');};
+$('jsonBtn').onclick=function(){download('VentLab_ajustes.json',JSON.stringify({application:'VentLab',version:'1.0',settings:p},null,2),'application/json');};
+$('loadBtn').onclick=function(){$('jsonFile').click();};
+$('jsonFile').onchange=function(e){const f=e.target.files[0];if(!f)return;if(f.size>50000){toast('Archivo demasiado grande para un ajuste.');return;}const reader=new FileReader();reader.onload=function(){try{const o=JSON.parse(reader.result);if(o.application!=='VentLab'||!o.settings)throw new Error('No es un archivo de ajustes VentLab');p=VentModel.normalize(o.settings);$('preset').value='custom';recompute();toast('Ajustes cargados.');}catch(err){toast('No se pudo cargar: '+err.message);}};reader.readAsText(f);e.target.value='';};
+$('htmlBtn').onclick=function(){const original=$('initial-config').textContent;$('initial-config').textContent=JSON.stringify(p);const clone=document.documentElement.cloneNode(true);['ventControls','mechControls','effortControls'].forEach(function(id){clone.querySelector('#'+id).innerHTML='';});clone.querySelector('#modalCover').classList.add('hidden');clone.querySelector('#toast').classList.add('hidden');clone.querySelector('#refTag').classList.add('hidden');clone.querySelector('#refBtn').textContent='＋ Referencia';clone.querySelector('#playBtn').textContent='Ⅱ Pausar';clone.querySelector('#absoluteVol').removeAttribute('checked');download('VentLab_Santis.html','<!doctype html>\n'+clone.outerHTML,'text/html;charset=utf-8');$('initial-config').textContent=original;};
+['pawCanvas','flowCanvas','volCanvas','pmusCanvas'].forEach(function(id){$(id).addEventListener('click',function(e){const r=this.getBoundingClientRect(),w=r.width,frac=Math.max(0,Math.min(1,(e.clientX-r.left-48)/(w-60)));head=frac*model.T*3;if(playing)play();else draw();});});
+document.addEventListener('keydown',function(e){if(['INPUT','SELECT','TEXTAREA','BUTTON'].indexOf(e.target.tagName)!==-1)return;if(e.code==='Space'){e.preventDefault();play();}if(e.key==='Escape')closeModal();});
+window.addEventListener('resize',draw);if(typeof ResizeObserver!=='undefined'){new ResizeObserver(function(){draw();}).observe($('wavesView'));}
+function tick(ts){if(previous===0)previous=ts;const delta=Math.min((ts-previous)/1000,.1);previous=ts;if(playing&&model&&!document.hidden&&$('modalCover').classList.contains('hidden')){head=(head+delta)%(model.T*3);draw();}window.requestAnimationFrame(tick);}
+// Exposed for transparent numerical/UI tests; no access to external services.
+window.VentLab={getState:function(){return {settings:Object.assign({},p),metrics:Object.assign({},model.metrics),playing:playing,view:view};},setSettings:function(settings){p=VentModel.normalize(settings);$('preset').value='custom';recompute();},pause:function(){if(playing)play();},model:function(){return model;}};
+// Serialized HTML can contain current markup; restore the initial visual state.
+$('preset').value=Object.keys(presets).find(function(k){return Object.keys(D).every(function(x){return presets[k][x]===p[x];});})||'custom';
+$('absoluteVol').checked=false;document.body.classList.remove('class-mode');$('classBtn').textContent='Modo proyección';tab('waves');sync();recompute();window.requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
